@@ -1,6 +1,6 @@
-### Chatbot with Pytorch
+# Chatbot with Pytorch
 
-# Step 1: Create formatted data file
+## Step 1: Create formatted data file
 
 Used Cornell Movie-Dialogs Corpus as training data set.
 Created a formatted data fiel which each line contains a tab-sepearted query sentence and a response sentence pair. 
@@ -15,7 +15,7 @@ b"Cameron.\tThe thing is, Cameron -- I'm at the mercy of a particularly hideous 
 b"The thing is, Cameron -- I'm at the mercy of a particularly hideous breed of loser.  My sister.  I can't date until she does.\tSeems like she could get a date easy enough...\n"
 
 
-# Step 2: Load and trim data
+## Step 2: Load and trim data
 
 Created a vocabulary and load query/response sentence pairs into memory.
 We are dealing with sequences of words, which do not have an implicit mapping to a discrete numerical space. Thus, we must create one by mapping each unique word that we encounter in our dataset to an index value.
@@ -30,19 +30,19 @@ We will do this as a two-step process:
   - Filter out pairs with trimmed words
  
  
-# Step 3: Prepare data for models
+## Step 3: Prepare data for models
 
 Our models expect numerical torch tensors as inputs. We would train our model using mini-batches. # Using mini-batches also means that we must be mindful of the variation of sentence length in our batches. To accomodate sentences of different sizes in the same batch, we will make our batched input tensor of shape  (max_length, batch_size), where sentences shorter than the max_length are zero padded after an EOS_token. If we simply convert our English sentences to tensors by converting words to their indexes(indexesFromSentence) and zero-pad, our tensor would have shape (batch_size, max_length) and indexing the first dimension would return a full sequence across all time-steps. However, we need to be able to index our batch along time, and across all sequences in the batch. Therefore, we transpose our input batch shape to (max_length, batch_size), so that indexing across the first dimension returns a time step across all sentences in the batch. We handle this transpose implicitly in the zeroPadding function.
 
 
-# Step 4: Define models
+## Step 4: Define models
 
 We are going to use Seq2Seq(sentence-to-sentence) Model. 
 Goal: take a variable-length sequence as an input, and return a variable-length sequence as an output using a fixed-sized model.
 One RNN acts as an encoder, which encodes a variable length input sequence to a fixed-length context vector.  In theory, this context vector (the final hidden layer of the RNN) will contain semantic information about the query sentence that is input to the bot. The second RNN is a decoder, which takes an input word and the context vector, and returns a guess for the next word in the sequence and a hidden state to use in the next iteration.
 
 
-# Step 5: Encoder
+## Step 5: Encoder
 The encoder RNN iterates through the input sentence one token (e.g. word) at a time, at each time step outputting an “output” vector and a “hidden state” vector. The hidden state vector is then passed to the next time step, while the output vector is recorded. The encoder transforms the context it saw at each point in the sequence into a set of points in a high-dimensional space, which the decoder will use to generate a meaningful output for the given task.
 
 At the heart of our encoder is a multi-layered Gated Recurrent Unit, invented by Cho et al. in 2014. We will use a bidirectional variant of the GRU, meaning that there are essentially two independent RNNs: one that is fed the input sequence in normal sequential order, and one that is fed the input sequence in reverse order. The outputs of each network are summed at each time step. Using a bidirectional GRU will give us the advantage of encoding both past and future context.
@@ -60,7 +60,7 @@ Computation Graph:
     6. Return output and final hidden state
     
     
-# Step 6: Decoder
+## Step 6: Decoder
 
 The decode RNN generates the response sentence in a token-by-token fashion. It uses the encoder's context vectors, and internal hidden states to generate the next word in the sequence. It continues generating words until it outputs an EOS_token, representing the end of the sentence. A common problem with a vanilla seq2seq decoder is that if we rely soley on the context vector to encode the entire input sequence's meanin, it is likely that we will have information loss. THis is especially the case when dealing with long input sequences, greatly limiting the capability of our decoder. We used the score function.
 
@@ -77,7 +77,7 @@ Computation Graph:
     7. Return output and final hidden state
     
     
-# Step 7: Single training
+## Step 7: Single training
 
 Sequence of Operations:
   1. Forward pass entire input batch through encoder.
@@ -90,7 +90,7 @@ Sequence of Operations:
   8. Update encoder and decoder model parameters.
 
 
-# Step 8: Define evaluation
+## Step 8: Define evaluation
 
 Greedy decoding
 
