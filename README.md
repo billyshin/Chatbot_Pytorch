@@ -6,6 +6,8 @@ Used Cornell Movie-Dialogs Corpus as training data set.
 Created a formatted data fiel which each line contains a tab-sepearted query sentence and a response sentence pair. 
 
 Sample lines from file:
+
+
 b"Can we make this quick?  Roxanne Korrine and Andrew Barrett are having an incredibly horrendous public break- up on the quad.  Again.\tWell, I thought we'd start with pronunciation, if that's okay with you.\n"
 b"Well, I thought we'd start with pronunciation, if that's okay with you.\tNot the hacking and gagging and spitting part.  Please.\n"
 b"Not the hacking and gagging and spitting part.  Please.\tOkay... then how 'bout we try out some French cuisine.  Saturday?  Night?\n"
