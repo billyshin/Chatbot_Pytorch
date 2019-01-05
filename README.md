@@ -89,3 +89,4 @@ Computation graph:
 
 ## Funny Demo:
 
+![alt text](https://github.com/billyshin/Chatbot_Pytorch/blob/master/Screen-Shot-2019-01-05-at-14.45.21-PM.png)
