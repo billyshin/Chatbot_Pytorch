@@ -85,3 +85,7 @@ Computation graph:
        c) Record token and score.
        d) Prepare current token to be next decoder input.
    6. Return collections of word tokens and scores.
+
+
+## Funny Demo:
+
