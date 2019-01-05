@@ -36,24 +36,24 @@ One RNN acts as an encoder, which encodes a variable length input sequence to a 
 ## Step 5: Encoder
 
 Computation Graph:
-    1. Convert wor indexes to embeddings
-    2. Pack padded batch of sequences for RNN module
-    3. Forward pass through GPU
-    4. Unpack padding
-    5. Sum bidirectional GRU outputs
-    6. Return output and final hidden state
+  1. Convert wor indexes to embeddings
+  2. Pack padded batch of sequences for RNN module
+  3. Forward pass through GPU
+  4. Unpack padding
+  5. Sum bidirectional GRU outputs
+  6. Return output and final hidden state
     
     
 ## Step 6: Decoder
 
 Computation Graph:
-    1. Get embedding of current input word
-    2. Forward through unidirectional GRU
-    3. Calculate attention weights from the current GRU output from (2)
-    4. Multiply attention weights to encoder outputs to get new "weighted sum" context vector
-    5. Concatenate weighted context vector and GRU output using Luong equation 5
-    6. Predict next word using Luong equation 6 (without softmax)
-    7. Return output and final hidden state
+  1. Get embedding of current input word
+  2. Forward through unidirectional GRU
+  3. Calculate attention weights from the current GRU output from (2)
+  4. Multiply attention weights to encoder outputs to get new "weighted sum" context vector
+  5. Concatenate weighted context vector and GRU output using Luong equation 5
+  6. Predict next word using Luong equation 6 (without softmax)
+  7. Return output and final hidden state
     
     
 ## Step 7: Single training
